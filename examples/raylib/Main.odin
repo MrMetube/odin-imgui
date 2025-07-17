@@ -1,4 +1,4 @@
-package main
+package example
 
 // Code Transformed from the imgui/raylib backend here:
 // https://github.com/oskaritimperi/imgui-impl-raylib/blob/master/imgui_impl_raylib.cpp

@@ -1,4 +1,4 @@
-package main
+package example
 
 // Code Transformed from the imgui/raylib backend here:
 // https://github.com/oskaritimperi/imgui-impl-raylib/blob/master/imgui_impl_raylib.cpp
@@ -6,9 +6,9 @@ package main
 // inspiration for use with ODIN.
 
 import "core:math"
-import c "core:c/libc"
 import "shared:imgui"
 import rl "vendor:raylib"
+import rlgl "vendor:raylib/rlgl"
 
 g_Time := 0.0
 g_UnloadAtlas := false
@@ -260,8 +260,15 @@ ImGui_ImplRaylib_LoadDefaultFontAtlas :: proc() {
 
         imgui.ImFontAtlas_GetTexDataAsRGBA32(io.fonts, &pixels, &width, &height, &bpp)
         size := rl.GetPixelDataSize(width, height, .UNCOMPRESSED_R8G8B8A8)
-        image.data = c.malloc(uint(size))
-        c.memcpy(image.data, pixels, uint(size))
+
+        // image.data = c.malloc(uint(size))
+        slice := make([]u8, size, context.temp_allocator)
+        
+        // c.memcpy(image.data, pixels, uint(size))
+        image.data = raw_data(slice)
+        source := (cast([^]u8) pixels)[:size]
+        copy(slice, source)
+
         image.width = width
         image.height = height
         image.mipmaps = 1
@@ -269,8 +276,9 @@ ImGui_ImplRaylib_LoadDefaultFontAtlas :: proc() {
         tex := rl.LoadTextureFromImage(image)
         g_AtlasTexID = tex.id
         io.fonts.tex_id = cast(imgui.Texture_ID)&g_AtlasTexID
-        c.free(pixels)
-        c.free(image.data)
+        // @leak
+        // c.free(pixels)
+        free_all(context.temp_allocator)
         g_UnloadAtlas = true
     }
 }
@@ -278,12 +286,12 @@ ImGui_ImplRaylib_LoadDefaultFontAtlas :: proc() {
 ImGui_ImplRaylib_Render :: proc(draw_data : ^imgui.Draw_Data) {
     DrawTriangleVertex :: proc(idx_vert : imgui.Draw_Vert) {
         c : rl.Color = rl.Color{ cast(u8)(idx_vert.col >> 0), cast(u8)(idx_vert.col >> 8), cast(u8)(idx_vert.col >> 16), cast(u8)(idx_vert.col >> 24) }
-        rl.rlColor4ub(c.r, c.g, c.b, c.a)
-        rl.rlTexCoord2f(idx_vert.uv.x, idx_vert.uv.y)
-        rl.rlVertex2f(idx_vert.pos.x, idx_vert.pos.y)
+        rlgl.Color4ub(c.r, c.g, c.b, c.a)
+        rlgl.TexCoord2f(idx_vert.uv.x, idx_vert.uv.y)
+        rlgl.Vertex2f(idx_vert.pos.x, idx_vert.pos.y)
     }
 
-    rl.rlDisableBackfaceCulling()
+    rlgl.DisableBackfaceCulling()
     for n in 0..<draw_data.cmd_lists_count {
         cmd_list := (cast([^]^imgui.Draw_List)draw_data.cmd_lists)[n]
         idx_index : u32 = 0
@@ -309,9 +317,9 @@ ImGui_ImplRaylib_Render :: proc(draw_data : ^imgui.Draw_Data) {
                             break
                         }
 
-                        rl.rlPushMatrix()
-                        rl.rlBegin(rl.RL_TRIANGLES)
-                        rl.rlSetTexture(ti^)
+                        rlgl.PushMatrix()
+                        rlgl.Begin(rlgl.TRIANGLES)
+                        rlgl.SetTexture(ti^)
 
                         index : imgui.Draw_Idx
                         vertex : imgui.Draw_Vert
@@ -328,9 +336,9 @@ ImGui_ImplRaylib_Render :: proc(draw_data : ^imgui.Draw_Data) {
                         vertex = vtx_buffer[index]
                         DrawTriangleVertex(vertex)
 
-                        rl.rlDisableTexture()
-                        rl.rlEnd()
-                        rl.rlPopMatrix()
+                        rlgl.DisableTexture()
+                        rlgl.End()
+                        rlgl.PopMatrix()
                     }
                 }
             }
@@ -340,5 +348,5 @@ ImGui_ImplRaylib_Render :: proc(draw_data : ^imgui.Draw_Data) {
     }
 
     rl.EndScissorMode()
-    rl.rlEnableBackfaceCulling()
+    rlgl.EnableBackfaceCulling()
 }

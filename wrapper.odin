@@ -899,7 +899,7 @@ wrapper_text_disabled :: proc(fmt_: string, args: ..any) {
 // PREDEFINED FOR 'igTextUnformatted'
 wrapper_unformatted_text :: proc(text: string) {
     t := strings.clone_to_cstring(text, context.temp_allocator);
-    ptr := transmute(^u8)t;
+    ptr := cast(^u8)t;
     end_ptr := mem.ptr_offset(ptr, len(t));
     igTextUnformatted(cstring(ptr), cstring(end_ptr));
 }

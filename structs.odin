@@ -412,16 +412,8 @@ Viewport :: struct {
 }
 
 //ImVec2 
-Vec2 :: struct {
-	x: f32,
-	y: f32,
-}
+Vec2 :: [2]f32
 
 //ImVec4 
-Vec4 :: struct {
-	x: f32,
-	y: f32,
-	z: f32,
-	w: f32,
-}
+Vec4 :: [4]f32
 
