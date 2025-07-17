@@ -1,3 +1,4 @@
+#!build
 package example
 
 // Code Transformed from the imgui/raylib backend here:
@@ -6,7 +7,7 @@ package example
 // inspiration for use with ODIN.
 
 import "core:fmt"
-import "shared:imgui"
+import imgui "../../"
 import rl "vendor:raylib"
 
 main :: proc()

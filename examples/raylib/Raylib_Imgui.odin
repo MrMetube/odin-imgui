@@ -6,7 +6,7 @@ package example
 // inspiration for use with ODIN.
 
 import "core:math"
-import "shared:imgui"
+import imgui "../../"
 import rl "vendor:raylib"
 import rlgl "vendor:raylib/rlgl"
 
