@@ -1,3 +1,4 @@
+#+private
 package imgui;
 
 when ODIN_DEBUG {
