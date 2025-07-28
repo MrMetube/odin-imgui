@@ -6,6 +6,7 @@ package example
 // inspiration for use with ODIN.
 
 import "core:math"
+import "core:strings"
 import imgui "../../"
 import rl "vendor:raylib"
 import rlgl "vendor:raylib/rlgl"
@@ -64,7 +65,7 @@ ImGui_ImplRaylib_Init :: proc() -> bool {
 ImGui_ImplRaylib_Shutdown :: proc() {
     if g_UnloadAtlas {
         io := imgui.get_io()
-        imgui.ImFontAtlas_ClearTexData(io.fonts)
+        imgui.font_atlas_clear_tex_data(io.fonts)
     }
     g_Time = 0.0
 }
@@ -98,7 +99,7 @@ ImGui_ImplRaylib_UpdateMouseCursor :: proc() {
         return
     }
 
-    imgui_cursor := imgui.igGetMouseCursor()
+    imgui_cursor := imgui.get_mouse_cursor()
     if io.mouse_draw_cursor || imgui_cursor == imgui.Mouse_Cursor.None {
         rl.HideCursor()
     }
@@ -246,7 +247,8 @@ ImGui_ImplRaylib_ProcessEvent :: proc() -> bool {
     io.keys_down[cast(i32)rl.KeyboardKey.VOLUME_DOWN]  = rl.IsKeyDown(.VOLUME_DOWN)
     
     length : i32
-    imgui.ImGuiIO_AddInputCharactersUTF8(io, rl.CodepointToUTF8(rl.GetCharPressed(), &length))
+    x := rl.CodepointToUTF8(rl.GetCharPressed(), &length)
+    imgui.io_add_input_characters_utf8(io, strings.clone_from_cstring(x, context.temp_allocator))
 
     return true
 }
@@ -258,7 +260,7 @@ ImGui_ImplRaylib_LoadDefaultFontAtlas :: proc() {
         width, height, bpp : i32
         image : rl.Image
 
-        imgui.ImFontAtlas_GetTexDataAsRGBA32(io.fonts, &pixels, &width, &height, &bpp)
+        imgui.font_atlas_get_tex_data_as_rgba32(io.fonts, &pixels, &width, &height, &bpp)
         size := rl.GetPixelDataSize(width, height, .UNCOMPRESSED_R8G8B8A8)
 
         // image.data = c.malloc(uint(size))
