@@ -1,3 +1,4 @@
+#+private
 package imgui;
 
 import "core:fmt";
