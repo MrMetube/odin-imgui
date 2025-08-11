@@ -1,3 +1,4 @@
+#+no-instrumentation
 package imgui;
 
 color_hsv     :: #force_inline proc(pOut: ^Color, h: f32, s: f32, v: f32, a := f32(1.0)) { ImColor_HSV(pOut, h, s, v, a);}

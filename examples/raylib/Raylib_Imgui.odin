@@ -1,3 +1,4 @@
+#+no-instrumentation
 package example
 
 // Code Transformed from the imgui/raylib backend here:
