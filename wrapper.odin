@@ -791,21 +791,21 @@ swr_igSliderFloat :: proc(label: string, v: ^f32, v_min: f32, v_max: f32, format
 }
 
 // AUTO_GENERATED for 'igSliderFloat2'
-swr_igSliderFloat2 :: proc(label: string, v: [2]f32, v_min: f32, v_max: f32, format: string, flags: Slider_Flags) -> bool {
+swr_igSliderFloat2 :: proc(label: string, v: ^[2]f32, v_min: f32, v_max: f32, format: string, flags: Slider_Flags) -> bool {
 	str0 := strings.clone_to_cstring(label, context.temp_allocator);
 	str4 := strings.clone_to_cstring(format, context.temp_allocator);
 	return igSliderFloat2(str0, v, v_min, v_max, str4, flags);
 }
 
 // AUTO_GENERATED for 'igSliderFloat3'
-swr_igSliderFloat3 :: proc(label: string, v: [3]f32, v_min: f32, v_max: f32, format: string, flags: Slider_Flags) -> bool {
+swr_igSliderFloat3 :: proc(label: string, v: ^[3]f32, v_min: f32, v_max: f32, format: string, flags: Slider_Flags) -> bool {
 	str0 := strings.clone_to_cstring(label, context.temp_allocator);
 	str4 := strings.clone_to_cstring(format, context.temp_allocator);
 	return igSliderFloat3(str0, v, v_min, v_max, str4, flags);
 }
 
 // AUTO_GENERATED for 'igSliderFloat4'
-swr_igSliderFloat4 :: proc(label: string, v: [4]f32, v_min: f32, v_max: f32, format: string, flags: Slider_Flags) -> bool {
+swr_igSliderFloat4 :: proc(label: string, v: ^[4]f32, v_min: f32, v_max: f32, format: string, flags: Slider_Flags) -> bool {
 	str0 := strings.clone_to_cstring(label, context.temp_allocator);
 	str4 := strings.clone_to_cstring(format, context.temp_allocator);
 	return igSliderFloat4(str0, v, v_min, v_max, str4, flags);
@@ -819,21 +819,21 @@ swr_igSliderInt :: proc(label: string, v: ^i32, v_min: i32, v_max: i32, format: 
 }
 
 // AUTO_GENERATED for 'igSliderInt2'
-swr_igSliderInt2 :: proc(label: string, v: [2]i32, v_min: i32, v_max: i32, format: string, flags: Slider_Flags) -> bool {
+swr_igSliderInt2 :: proc(label: string, v: ^[2]i32, v_min: i32, v_max: i32, format: string, flags: Slider_Flags) -> bool {
 	str0 := strings.clone_to_cstring(label, context.temp_allocator);
 	str4 := strings.clone_to_cstring(format, context.temp_allocator);
 	return igSliderInt2(str0, v, v_min, v_max, str4, flags);
 }
 
 // AUTO_GENERATED for 'igSliderInt3'
-swr_igSliderInt3 :: proc(label: string, v: [3]i32, v_min: i32, v_max: i32, format: string, flags: Slider_Flags) -> bool {
+swr_igSliderInt3 :: proc(label: string, v: ^[3]i32, v_min: i32, v_max: i32, format: string, flags: Slider_Flags) -> bool {
 	str0 := strings.clone_to_cstring(label, context.temp_allocator);
 	str4 := strings.clone_to_cstring(format, context.temp_allocator);
 	return igSliderInt3(str0, v, v_min, v_max, str4, flags);
 }
 
 // AUTO_GENERATED for 'igSliderInt4'
-swr_igSliderInt4 :: proc(label: string, v: [4]i32, v_min: i32, v_max: i32, format: string, flags: Slider_Flags) -> bool {
+swr_igSliderInt4 :: proc(label: string, v: ^[4]i32, v_min: i32, v_max: i32, format: string, flags: Slider_Flags) -> bool {
 	str0 := strings.clone_to_cstring(label, context.temp_allocator);
 	str4 := strings.clone_to_cstring(format, context.temp_allocator);
 	return igSliderInt4(str0, v, v_min, v_max, str4, flags);
