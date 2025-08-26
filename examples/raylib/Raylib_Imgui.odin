@@ -265,7 +265,9 @@ ImGui_ImplRaylib_LoadDefaultFontAtlas :: proc() {
         size := rl.GetPixelDataSize(width, height, .UNCOMPRESSED_R8G8B8A8)
 
         // image.data = c.malloc(uint(size))
-        slice := make([]u8, size, context.temp_allocator)
+        slice := make([]u8, size, context.allocator)
+        // c.free(pixels)
+        defer delete(slice, context.allocator)
         
         // c.memcpy(image.data, pixels, uint(size))
         image.data = raw_data(slice)
@@ -279,9 +281,7 @@ ImGui_ImplRaylib_LoadDefaultFontAtlas :: proc() {
         tex := rl.LoadTextureFromImage(image)
         g_AtlasTexID = tex.id
         io.fonts.tex_id = cast(imgui.Texture_ID)&g_AtlasTexID
-        // @leak
-        // c.free(pixels)
-        free_all(context.temp_allocator)
+        
         g_UnloadAtlas = true
     }
 }
