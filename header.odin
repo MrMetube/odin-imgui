@@ -551,9 +551,11 @@ push_text_wrap_pos                     :: #force_inline proc(wrap_local_pos_x :=
 radio_button :: proc {
 	radio_button_bool,
 	radio_button_int_ptr,
+	radio_button_enum_ptr,
 };
 radio_button_bool                      :: #force_inline proc(label: string, active: bool) -> bool                                                                                                                                   { return swr_igRadioButton_Bool(label, active);}
 radio_button_int_ptr                   :: #force_inline proc(label: string, v: ^i32, v_button: i32) -> bool                                                                                                                         { return swr_igRadioButton_IntPtr(label, v, v_button);}
+radio_button_enum_ptr                   :: #force_inline proc(label: string, v: ^$E, v_button: E) -> bool                                                                                                                         { return swr_igRadioButton_IntPtr(label, cast(^i32) v, cast(i32) v_button);}
 
 render                                 :: #force_inline proc()                                                                                                                                                                      { igRender();}
 reset_mouse_drag_delta                 :: #force_inline proc(button := Mouse_Button(0))                                                                                                                                             { igResetMouseDragDelta(button);}
