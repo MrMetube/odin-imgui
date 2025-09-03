@@ -1,12 +1,12 @@
 package imgui_impl_glfw
 
-import "core:runtime"
+import "base:runtime"
 import "core:strings"
 import glfw "shared:odin-glfw"
 
 import imgui "../..";
 
-@private
+@(private)
 state: GLFW_State;
 
 GLFW_State :: struct {
@@ -150,7 +150,7 @@ update_dt :: proc() {
     state.time = now;
 }
 
-@private
+@(private)
 get_clipboard_text :: proc "c" (user_data: rawptr) -> cstring
 {
     context = runtime.default_context();
@@ -158,14 +158,14 @@ get_clipboard_text :: proc "c" (user_data: rawptr) -> cstring
     return strings.unsafe_string_to_cstring(s);
 }
 
-@private
+@(private)
 set_clipboard_text :: proc "c" (user_data: rawptr, text: cstring)
 {
     context = runtime.default_context();
     glfw.set_clipboard_string(glfw.Window_Handle(user_data), string(text));
 }
 
-@private
+@(private)
 key_callback :: proc "c" (window: glfw.Window_Handle, key, scancode, action, mods: i32) {
     context = runtime.default_context();
 
@@ -189,7 +189,7 @@ key_callback :: proc "c" (window: glfw.Window_Handle, key, scancode, action, mod
     }
 }
 
-@private
+@(private)
 mouse_button_callback :: proc "c" (window: glfw.Window_Handle, button, action, mods: i32) {
     context = runtime.default_context();
 
@@ -202,7 +202,7 @@ mouse_button_callback :: proc "c" (window: glfw.Window_Handle, button, action, m
     }
 }
 
-@private
+@(private)
 scroll_callback :: proc "c" (window: glfw.Window_Handle, xoffset, yoffset: f64) {
     context = runtime.default_context();
 
@@ -215,7 +215,7 @@ scroll_callback :: proc "c" (window: glfw.Window_Handle, xoffset, yoffset: f64) 
     io.mouse_wheel   += f32(yoffset);
 }
 
-@private
+@(private)
 char_callback :: proc "c" (window: glfw.Window_Handle, codepoint: rune) {
     context = runtime.default_context();
 
