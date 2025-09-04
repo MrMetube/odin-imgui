@@ -398,7 +398,7 @@ foreign cimgui {
 	igIsWindowFocused                  :: proc(flags: Focused_Flags) -> bool ---;
 	igIsWindowHovered                  :: proc(flags: Hovered_Flags) -> bool ---;
 	igLabelText                        :: proc(label: cstring, fmt_: cstring, #c_vararg args: ..any) ---;
-	igListBox_Str_arr                  :: proc(label: cstring, current_item: ^i32, items: cstring, items_count: i32, height_in_items: i32) -> bool ---;
+	igListBox_Str_arr                  :: proc(label: cstring, current_item: ^i32, items: [^]cstring, items_count: i32, height_in_items: i32) -> bool ---;
 	igListBox_FnBoolPtr                :: proc(label: cstring, current_item: ^i32, items_getter: Items_Getter_Proc, data: rawptr, items_count: i32, height_in_items: i32) -> bool ---
 	igLoadIniSettingsFromDisk          :: proc(ini_filename: cstring) ---;
 	igLoadIniSettingsFromMemory        :: proc(ini_data: cstring, ini_size: uint) ---;

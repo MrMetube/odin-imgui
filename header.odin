@@ -461,7 +461,7 @@ list_box :: proc {
 	list_box_str_arr,
 	list_box_fn_bool_ptr,
 };
-list_box_str_arr                       :: #force_inline proc(label: string, current_item: ^i32, items: string, items_count: i32, height_in_items := i32(-1)) -> bool                                                                { return swr_igListBox_Str_arr(label, current_item, items, items_count, height_in_items);}
+list_box_str_arr                       :: #force_inline proc(label: string, current_item: ^i32, items: [^]string, items_count: i32, height_in_items := i32(-1)) -> bool                                                                { return swr_igListBox_Str_arr(label, current_item, items, items_count, height_in_items);}
 list_box_fn_bool_ptr                   :: #force_inline proc(label: string, current_item: ^i32, items_getter: Items_Getter_Proc, data: rawptr, items_count: i32, height_in_items := i32(0)) -> bool                                 { return wrapper_list_box_fn_bool_ptr(label, current_item, items_getter, data, items_count, height_in_items);}
 
 load_ini_settings_from_disk            :: #force_inline proc(ini_filename: string)                                                                                                                                                  { swr_igLoadIniSettingsFromDisk(ini_filename);}

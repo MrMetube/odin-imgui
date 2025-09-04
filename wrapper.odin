@@ -556,10 +556,11 @@ swr_igLabelText :: proc(label: string, fmt_: string, args: ..any) {
 }
 
 // AUTO_GENERATED for 'igListBox_Str_arr'
-swr_igListBox_Str_arr :: proc(label: string, current_item: ^i32, items: string, items_count: i32, height_in_items: i32) -> bool {
+swr_igListBox_Str_arr :: proc(label: string, current_item: ^i32, items: [^]string, items_count: i32, height_in_items: i32) -> bool {
 	str0 := strings.clone_to_cstring(label, context.temp_allocator);
-	str2 := strings.clone_to_cstring(items, context.temp_allocator);
-	return igListBox_Str_arr(str0, current_item, str2, items_count, height_in_items);
+	str2s := make([] cstring, items_count, context.temp_allocator)
+    for item, index in items[:items_count] do str2s[index] = strings.clone_to_cstring(item, context.temp_allocator);
+	return igListBox_Str_arr(str0, current_item, raw_data(str2s), items_count, height_in_items);
 }
 
 // PREDEFINED FOR 'igListBox_FnBoolPtr'
